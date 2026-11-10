@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Configuracion personal de asistentes de IA
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Sistema
+.DS_Store
+Thumbs.db
