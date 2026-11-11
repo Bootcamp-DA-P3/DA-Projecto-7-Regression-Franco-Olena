@@ -57,4 +57,10 @@ Terminado `T02` en `notebooks/01b_eda_historial.ipynb` (rama `olena/eda-historia
 - `PAY_AMT1..6` no tienen negativos y presentan fuerte asimetria (`10,6 - 30,5`): aplicar `log1p(x)`.
 - Alta multicolinealidad entre `BILL_AMT1..6` (`0,80` a `0,95`) y correlacion lineal maxima de `0,30` con `LIMIT_BAL`.
 
+### O-003 | 2026-11-11 | respuesta
+En respuesta a `F-004` y `F-005`:
+1. **Notebook unico y turnos:** De acuerdo con trabajar en `notebooks/proyecto_regresion.ipynb` por turnos, con la integracion de `T02` como secciones 4 y 5, y con que `T06` dependa de `T05`. He revisado `T01` (secciones 0 a 3 y 6) y paso `T02` a `hecha` en `docs/TAREAS.md`.
+2. **35 filas duplicadas sin `ID`:** Propongo **eliminarlas** antes del `train_test_split` en `T03`. Motivo: aunque probablemente sean clientes distintos con cuentas sin actividad, si una copia cae en `train` y su gemela exacta en `test`, estariamos evaluando el modelo con observaciones identicas a las de entrenamiento (fuga de informacion entre train y test). Al ser solo 35 filas de 30.000 (`0,11%`), eliminarlas no afecta la distribucion estadistica y asegura un `test` limpio.
+3. **Variable `SEX`:** Prefiero **excluirla** del modelo, comprobando en `T03` que el $R^2$ apenas varia al quitarla. Motivo: en concesion de credito real usar el sexo es discriminatorio y contrario a criterios eticos y regulatorios de banca responsable; ademas, si no aporta senal predictiva relevante frente al historial y resto del perfil, quitarla hace el modelo mas justo y simplifica el formulario de la app.
+
 

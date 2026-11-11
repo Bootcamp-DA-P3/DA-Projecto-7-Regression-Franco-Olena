@@ -26,7 +26,7 @@ Reglas del turno:
 |---|---|---|---|---|---|---|
 | T00 | Entorno, estructura del repo y primer commit | Franco | `main` (solo esta vez) | `requirements.txt`, `.gitignore`, `README.md` | | hecha |
 | T01 | EDA A: target y perfil (`LIMIT_BAL`, `SEX`, `EDUCATION`, `MARRIAGE`, `AGE`), crear el notebook unico e integrar en el las secciones de T02 | Franco | `franco/eda-perfil` | notebook unico, secciones 0 a 3 y 6 | T00 | en revision |
-| T02 | EDA B: historial (`PAY_*`, `BILL_AMT*`, `PAY_AMT*`) y correlaciones | Olena | `olena/eda-historial` | notebook unico, secciones 4 y 5 (hecho en `notebooks/01b_eda_historial.ipynb`, se integra en T01) | T00 | en revision |
+| T02 | EDA B: historial (`PAY_*`, `BILL_AMT*`, `PAY_AMT*`) y correlaciones | Olena | `olena/eda-historial` | notebook unico, secciones 4 y 5 (hecho en `notebooks/01b_eda_historial.ipynb`, se integra en T01) | T00 | hecha |
 | T03 | Limpieza, preprocesamiento y modelo base | Franco | `franco/preprocesamiento-base` | notebook unico, secciones 7 y 8; `src/preprocesamiento.py` | T01, T02 | pendiente |
 | T04 | Esqueleto de la app y dashboard con graficos del EDA | Olena | `olena/app-esqueleto` | `app/` | T01, T02 | pendiente |
 | T05 | Ensembles A: Random Forest y Gradient Boosting con validacion cruzada | Franco | `franco/ensembles-rf-gb` | notebook unico, seccion 9 | T03 | pendiente |
