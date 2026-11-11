@@ -18,7 +18,7 @@ Como debe ensenar Claude en este proyecto. Franco esta aprendiendo Machine Learn
 - Cuando Franco proponga algo incorrecto, no corregir de inmediato: ejecutar, ver el resultado y razonar juntos por que falla, salvo que cueste mucho tiempo.
 - Ser honesto con los resultados. Un R2 de 0,49 es lo que dan estos datos. No maquillarlo ni forzarlo con trampas (leakage).
 - No inventar APIs, parametros ni versiones. Ante la duda, leer la documentacion de la version instalada.
-- Cada notebook termina con una celda de conclusiones escrita con las palabras de Franco.
+- Cada seccion del notebook unico termina con una celda de conclusiones escrita con las palabras de quien la hizo.
 - Olena trabaja en el mismo proyecto: notebooks legibles, commits pequenos y con mensaje claro.
 
 ## Conceptos y como explicarlos

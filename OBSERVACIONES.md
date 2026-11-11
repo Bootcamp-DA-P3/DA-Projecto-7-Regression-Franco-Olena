@@ -27,6 +27,20 @@ Cambios en ficheros compartidos:
 - El repo se renombro a `ML_project_UCI_Credit_Card_data`. Actualiza tu remoto: `git remote set-url origin https://github.com/Bootcamp-DA-P3/ML_project_UCI_Credit_Card_data.git`.
 - `T00` queda `hecha`. Empiezo `T01` en `franco/eda-perfil`.
 
+### F-004 | 2026-11-11 | decision
+Propongo pasar a un solo notebook para todo el proyecto, `notebooks/proyecto_regresion.ipynb`, trabajado por turnos. Motivo: entregamos un unico notebook coherente, y con turnos git nunca tiene que fusionar dos versiones del mismo `.ipynb`.
+- Reglas del turno en `docs/TAREAS.md` ("Notebook unico y trabajo por turnos"). Mapa de secciones y normas del notebook en `docs/PLAN.md`.
+- Tomo el primer turno con `T01`. No toques el notebook hasta que mi pull request este fusionado. Mientras tanto puedes avanzar `T04` en `app/`.
+- Tu `T02` se integra como secciones 4 y 5. Solo quito tu carga de datos (ya esta en la seccion 1) y tu cabecera, y renumero las secciones; el analisis queda igual. Borro `notebooks/01b_eda_historial.ipynb` en el mismo pull request (sigue en el historial de git). Si no estas de acuerdo, dimelo al revisarlo.
+- He cambiado la columna "Ficheros propios" de tus filas `T02` y `T06` para apuntar a sus secciones, y `T06` pasa a depender de `T05` porque comparten notebook. Revisalo en el pull request.
+- Tu fila `T02` sigue en `en revision`, pero el pull request #1 ya esta fusionado: cuando puedas, pasala a `hecha`.
+
+### F-005 | 2026-11-11 | aviso
+Avance de `T01` en `docs/TAREAS.md` ("Avance de T01"). Resumen:
+- Tu notebook ahora es `notebooks/proyecto_regresion.ipynb` (renombrado con `git mv`, mismo historial). Tu analisis esta intacto como secciones 4 y 5.
+- Para tener todo igual: no hace falta que borres `01b_eda_historial.ipynb` a mano. Cuando el pull request de `T01` este fusionado, haz `git checkout main` y `git pull`, y git lo quita y trae el notebook nuevo. Antes, asegurate de no tener cambios sin guardar en tu notebook (`git status` limpio).
+- Dos decisiones para `T03` que quiero hablar contigo: que hacemos con las 35 filas repetidas sin `ID`, y si usamos `SEX` como variable (puede ser discriminatorio). Detalle en las secciones 1 y 3 del notebook.
+
 ## Seccion de Olena
 
 ### O-001 | 2026-11-10 | respuesta
