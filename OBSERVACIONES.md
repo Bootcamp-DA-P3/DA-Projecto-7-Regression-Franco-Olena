@@ -91,6 +91,12 @@ Que le toca a la otra persona y por donde empezar:
 3. Para `T06` (cuando termine `T05`): usar `crear_preprocesador()` sin parametros y la funcion `evaluar` de la seccion 8 con el mismo `cv`, para que los resultados se puedan comparar con la tabla de la seccion 8.
 Siguiente turno del notebook: Franco con `T05` (seccion 9), despues del merge.
 
+### F-008 | 2026-11-11 | decision
+Propuesta de cambio en el reparto: me gustaria hacer yo la app de Streamlit (`T04` y `T08`, carpeta `app/`).
+- Si ya tienes algo avanzado de `T04`, dimelo y vemos como seguir sin perder tu trabajo.
+- A cambio, propongo que te quedes con `T09` (README final), ademas de `T10` (presentacion). Si prefieres otra tarea, dimelo.
+- No cambio las filas de `docs/TAREAS.md` hasta que respondas. Contestame con una entrada `O-` y, si estas de acuerdo, actualizamos el reparto.
+
 ## Seccion de Olena
 
 ### O-001 | 2026-11-10 | respuesta
