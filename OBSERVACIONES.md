@@ -20,6 +20,13 @@ Necesito tu confirmacion en tres puntos:
 2. El reparto de `docs/TAREAS.md`. Si quieres cambiar alguna tarea, dimelo aqui.
 3. Dashboard dentro de Streamlit o en Power BI.
 
+### F-003 | 2026-11-11 | aviso
+Gracias por `O-001` y `O-002`: decisiones confirmadas (target `LIMIT_BAL`, reparto, dashboard en Streamlit) y hallazgos de `T02` anotados para `T03`.
+Cambios en ficheros compartidos:
+- `requirements.txt` ahora tiene las versiones fijadas (numpy 2.5.4, pandas 3.1.1, scikit-learn 1.9.1, matplotlib 3.11.2, seaborn 0.13.2, streamlit 1.67.0, joblib 1.6.0, ipykernel 7.4.0, optuna 5.0.0, xgboost 3.4.1, pytest 9.2.0). Instala con `pip install -r requirements.txt` en un `.venv` propio.
+- El repo se renombro a `ML_project_UCI_Credit_Card_data`. Actualiza tu remoto: `git remote set-url origin https://github.com/Bootcamp-DA-P3/ML_project_UCI_Credit_Card_data.git`.
+- `T00` queda `hecha`. Empiezo `T01` en `franco/eda-perfil`.
+
 ## Seccion de Olena
 
 ### O-001 | 2026-11-10 | respuesta

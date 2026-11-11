@@ -12,7 +12,7 @@ Reglas:
 
 | ID | Tarea | Responsable | Rama | Ficheros propios | Depende de | Estado |
 |---|---|---|---|---|---|---|
-| T00 | Entorno, estructura del repo y primer commit | Franco | `main` (solo esta vez) | `requirements.txt`, `.gitignore`, `README.md` | | en curso |
+| T00 | Entorno, estructura del repo y primer commit | Franco | `main` (solo esta vez) | `requirements.txt`, `.gitignore`, `README.md` | | hecha |
 | T01 | EDA A: target y perfil (`LIMIT_BAL`, `SEX`, `EDUCATION`, `MARRIAGE`, `AGE`) | Franco | `franco/eda-perfil` | `notebooks/01a_eda_perfil.ipynb` | T00 | pendiente |
 | T02 | EDA B: historial (`PAY_*`, `BILL_AMT*`, `PAY_AMT*`) y correlaciones | Olena | `olena/eda-historial` | `notebooks/01b_eda_historial.ipynb` | T00 | en revision |
 | T03 | Limpieza, preprocesamiento y modelo base | Franco | `franco/preprocesamiento-base` | `notebooks/02_preprocesamiento_y_modelo_base.ipynb`, `src/preprocesamiento.py` | T01, T02 | pendiente |
