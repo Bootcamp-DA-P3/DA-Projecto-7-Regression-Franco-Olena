@@ -1,9 +1,8 @@
 # Plan de trabajo: Proyecto 7 Regresion
 
-Documento para la sesion de Claude que acompane a Franco (y a Olena) durante el proyecto.
-Leer junto con `AGENTS.md` (reglas), `docs/TAREAS.md` (reparto, ramas y estado) y `docs/GUIA_PROFESOR.md` (como explicar cada concepto).
+Plan tecnico del proyecto de Franco y Olena. Leer junto con `docs/TAREAS.md` (reparto, ramas y estado).
 
-Regla general: una fase por sesion como maximo, celda a celda, explicando antes de escribir. Al cerrar cada fase, actualizar `docs/TAREAS.md`.
+Regla general: avanzar fase a fase y no pasar a la siguiente sin cumplir el criterio de "hecho". Al cerrar cada fase, actualizar `docs/TAREAS.md`.
 
 Las fases describen el contenido tecnico. Quien hace cada parte y en que notebook esta en `docs/TAREAS.md`: el EDA se divide en `01a` y `01b`, y los ensembles en `03a` y `03b`.
 
@@ -42,7 +41,7 @@ Conclusiones verificadas:
 
 Formula de overfitting a usar: `(RMSE_validacion - RMSE_train) / RMSE_train * 100`.
 
-Si Franco y Olena cambian el target o el caso de uso, actualizar esta tabla y `AGENTS.md` antes de seguir.
+Si Franco y Olena cambian el target o el caso de uso, actualizar esta tabla antes de seguir.
 
 ## Estructura de carpetas objetivo
 
@@ -70,11 +69,11 @@ Objetivo: que el proyecto se pueda ejecutar y versionar.
 Estado real de la maquina (verificado): Python 3.13.15, numpy 2.5.3, pandas 3.0.6, scikit-learn 1.9.1, matplotlib 3.11.2, seaborn 0.13.2, streamlit 1.66.1, joblib 1.6.0, git 2.55.0. NO instalados: optuna, xgboost, jupyter/ipykernel, pytest. La carpeta no es repo git.
 
 Pasos:
-1. Explicar que es un entorno virtual y por que se usa (cada proyecto con sus versiones, reproducible para Olena).
+1. Usar un entorno virtual: cada proyecto con sus versiones, reproducible en las dos maquinas.
 2. Crear el entorno: `python -m venv .venv` y activarlo con `.venv\Scripts\Activate.ps1`.
 3. Instalar: numpy, pandas, scikit-learn, matplotlib, seaborn, streamlit, joblib, ipykernel, optuna, xgboost, pytest. Despues `pip freeze > requirements.txt`.
-4. `git init`, `.gitignore` (`.venv/`, `__pycache__/`, `.ipynb_checkpoints/`), primer commit. Preguntar a Franco la URL del repo del grupo antes de configurar el remoto. No hacer push sin que lo pida.
-5. Tras instalar optuna y xgboost, comprobar su version y leer su documentacion antes de escribir codigo con ellos. No escribir llamadas de memoria.
+4. `git init`, `.gitignore` (`.venv/`, `__pycache__/`, `.ipynb_checkpoints/`), primer commit. Conectar el remoto de GitHub.
+5. Tras instalar optuna y xgboost, comprobar su version y leer su documentacion antes de escribir codigo con ellos.
 
 Hecho cuando: un notebook de prueba importa pandas y sklearn desde el kernel `.venv`.
 
@@ -82,7 +81,7 @@ Hecho cuando: un notebook de prueba importa pandas y sklearn desde el kernel `.v
 
 Objetivo: entender los datos y justificar con graficos las decisiones de limpieza y de target.
 
-Conceptos a ensenar: target y features, tipos de variable (numerica, categorica, ordinal), distribucion y asimetria, outliers, correlacion (y que correlacion no es causalidad), multicolinealidad.
+Conceptos clave: target y features, tipos de variable (numerica, categorica, ordinal), distribucion y asimetria, outliers, correlacion (y que correlacion no es causalidad), multicolinealidad.
 
 Pasos:
 1. Carga, `shape`, `info`, `describe`, nulos y duplicados.
@@ -102,7 +101,7 @@ Hecho cuando: Franco puede explicar con sus palabras por que se elige `LIMIT_BAL
 
 Objetivo: dejar los datos listos sin contaminar la evaluacion.
 
-Conceptos a ensenar: data leakage, split train/test, por que el preprocesado se ajusta solo con train, Pipeline y ColumnTransformer, one-hot encoding, escalado, transformacion logaritmica.
+Conceptos clave: data leakage, split train/test, por que el preprocesado se ajusta solo con train, Pipeline y ColumnTransformer, one-hot encoding, escalado, transformacion logaritmica.
 
 Decisiones de limpieza:
 - Eliminar `ID` (identificador, sin informacion).
@@ -135,7 +134,7 @@ Hecho cuando: existe un pipeline de preprocesado que transforma train sin errore
 
 Objetivo: tener una referencia simple contra la que comparar todo lo demas.
 
-Conceptos a ensenar: regresion lineal (coeficientes), MAE, RMSE, R2, por que hace falta un baseline, residuos.
+Conceptos clave: regresion lineal (coeficientes), MAE, RMSE, R2, por que hace falta un baseline, residuos.
 
 Pasos:
 1. Baseline tonto: `DummyRegressor` que predice siempre la media. Su R2 es 0. Todo modelo debe superarlo.
@@ -155,7 +154,7 @@ Hecho cuando: hay una tabla con Dummy, Lineal y Ridge (MAE, RMSE, R2, overfittin
 
 Objetivo: mejorar al modelo base y cumplir overfitting menor al 5%.
 
-Conceptos a ensenar: arbol de decision, bagging (Random Forest), boosting (Gradient Boosting, XGBoost), sesgo y varianza, validacion cruzada, regularizacion de arboles, feature importance.
+Conceptos clave: arbol de decision, bagging (Random Forest), boosting (Gradient Boosting, XGBoost), sesgo y varianza, validacion cruzada, regularizacion de arboles, feature importance.
 
 Pasos:
 1. Un solo arbol sin limite de profundidad: R2 de train casi perfecto, validacion mala. Demostracion visual de overfitting.
@@ -172,7 +171,7 @@ Hecho cuando: hay un modelo candidato con R2 de validacion cerca de 0,48 y overf
 
 Objetivo: ajustar hiperparametros de forma sistematica y cerrar el modelo.
 
-Conceptos a ensenar: hiperparametro contra parametro, por que no se ajusta a mano ni con el test, busqueda bayesiana a nivel intuitivo, evaluacion final unica.
+Conceptos clave: hiperparametro contra parametro, por que no se ajusta a mano ni con el test, busqueda bayesiana a nivel intuitivo, evaluacion final unica.
 
 Pasos:
 1. Definir la funcion objetivo: RMSE medio de validacion cruzada del pipeline completo.
@@ -190,8 +189,6 @@ Hecho cuando: existe `models/modelo_final.joblib`, las metricas de test estan do
 ## Fase 6: App Streamlit y dashboard
 
 Objetivo: productivizar el modelo.
-
-Usar la skill `developing-with-streamlit` antes de escribir la app.
 
 Contenido minimo:
 1. Pagina de prediccion: formulario con las variables del cliente, boton y limite recomendado. Redondear la salida al multiplo de 10.000 mas cercano (los limites reales lo son) y mostrar el margen de error tipico (MAE).

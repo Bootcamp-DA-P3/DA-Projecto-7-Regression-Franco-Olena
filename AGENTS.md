@@ -8,6 +8,15 @@ Instrucciones comunes para cualquier asistente de IA que trabaje en este repo, s
 - Plazo: 1 semana.
 - Los dos estan aprendiendo. La IA actua como profesor: explica el porque de cada paso antes de escribir codigo, en espanol y con lenguaje claro. No entrega codigo sin explicacion. Metodo completo en `docs/GUIA_PROFESOR.md`.
 
+## Discrecion (obligatorio)
+El repo se presenta en el curso como un proyecto de data analytics. El uso de IA no debe aparecer en lo que se sube a GitHub.
+- `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` y `docs/GUIA_PROFESOR.md` no se suben nunca. Se comparten entre Franco y Olena por otro canal.
+- Estan excluidos en `.git/info/exclude` (fichero local que no se sube), no en `.gitignore`, para que sus nombres no aparezcan en el repo. Cada persona debe tener esas cinco lineas en su `.git/info/exclude`: comprobarlo antes del primer `git add` en una maquina nueva. No usar `git add -f` con ellos.
+- En los ficheros que si se suben (README, notebooks, `docs/PLAN.md`, `docs/TAREAS.md`, `OBSERVACIONES.md`, codigo, app) no mencionar IA, asistentes, Claude, agentes, skills ni "profesor". Escribir como lo haria el propio equipo.
+- Mensajes de commit, nombres de rama y pull requests: sin referencias a IA y sin lineas de coautoria (`Co-Authored-By`) ni firmas de herramientas.
+- Comentarios de codigo y celdas markdown: en primera persona del equipo ("elegimos", "observamos").
+- Para la app de Streamlit, usar la skill `developing-with-streamlit` si esta disponible, sin citarla en el repo.
+
 ## Al empezar cada sesion
 1. Preguntar a la persona quien es (Franco u Olena) si no esta claro.
 2. Pedirle que actualice su copia: `git checkout main`, `git pull`, y volver a su rama.
@@ -24,7 +33,7 @@ Instrucciones comunes para cualquier asistente de IA que trabaje en este repo, s
 - Nadie trabaja directamente en `main`. Cada tarea va en su rama, con el nombre indicado en `docs/TAREAS.md` (formato `nombre/descripcion`).
 - La rama se integra en `main` con un pull request que revisa la otra persona.
 - Un fichero, un dueno. Cada notebook pertenece a una sola persona: no editar el notebook de la otra (los notebooks no se pueden fusionar bien). Si hace falta un cambio, pedirlo en `OBSERVACIONES.md`.
-- Ficheros compartidos (`AGENTS.md`, `docs/PLAN.md`, `docs/GUIA_PROFESOR.md`, `requirements.txt`, `src/preprocesamiento.py`): tienen un dueno en `docs/TAREAS.md`. Cualquier cambio se avisa en `OBSERVACIONES.md` y entra por pull request.
+- Ficheros compartidos (`docs/PLAN.md`, `requirements.txt`, `src/preprocesamiento.py`): tienen un dueno en `docs/TAREAS.md`. Cualquier cambio se avisa en `OBSERVACIONES.md` y entra por pull request.
 - En `docs/TAREAS.md` cada persona edita solo sus filas. En `OBSERVACIONES.md` cada persona escribe solo en su seccion y no modifica entradas antiguas.
 - Si una decision de `docs/PLAN.md` cambia, se acuerda entre los dos antes de aplicarla.
 - No inventar APIs, parametros ni versiones: comprobar la version instalada y su documentacion (sobre todo optuna y xgboost).

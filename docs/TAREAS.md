@@ -1,6 +1,6 @@
 # Tareas
 
-Reparto propuesto el 2026-11-10 por Franco (con su asistente). Olena debe revisarlo y aceptarlo o proponer cambios en `OBSERVACIONES.md`.
+Reparto propuesto el 2026-11-10 por Franco. Olena debe revisarlo y aceptarlo o proponer cambios en `OBSERVACIONES.md`.
 
 Reglas:
 - Cada persona edita solo sus filas.
@@ -36,7 +36,7 @@ Reglas:
 
 | Fichero | Dueno | Como se cambia |
 |---|---|---|
-| `AGENTS.md`, `docs/PLAN.md`, `docs/GUIA_PROFESOR.md` | Franco | Aviso en `OBSERVACIONES.md` y pull request |
+| `docs/PLAN.md` | Franco | Aviso en `OBSERVACIONES.md` y pull request |
 | `src/preprocesamiento.py` | Franco | Olena pide cambios en `OBSERVACIONES.md` |
 | `requirements.txt` | Franco | Quien necesite una libreria nueva lo avisa en `OBSERVACIONES.md` |
 | `app/` | Olena | Franco pide cambios en `OBSERVACIONES.md` |

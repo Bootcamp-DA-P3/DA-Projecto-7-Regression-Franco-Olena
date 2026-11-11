@@ -29,4 +29,4 @@ docs/        plan, guia y reparto de tareas
 
 ## Como trabajamos
 
-Cada persona trabaja con su asistente de IA en su propia rama. Las reglas estan en `AGENTS.md`, el reparto en `docs/TAREAS.md` y los mensajes entre los dos en `OBSERVACIONES.md`.
+Cada persona trabaja en su propia rama y los cambios entran en `main` por pull request. El plan tecnico esta en `docs/PLAN.md`, el reparto en `docs/TAREAS.md` y las notas de equipo en `OBSERVACIONES.md`.

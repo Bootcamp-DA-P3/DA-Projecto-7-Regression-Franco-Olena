@@ -1,18 +1,18 @@
 # Observaciones
 
-Mensajes entre Franco y Olena (y sus asistentes de IA). Sirve para decisiones, avisos de cambios en ficheros compartidos, dudas y bloqueos.
+Mensajes entre Franco y Olena. Sirve para decisiones, avisos de cambios en ficheros compartidos, dudas y bloqueos.
 
 Reglas:
 - Cada persona escribe solo en su seccion, anadiendo al final de ella. Asi git fusiona sin conflictos.
 - No se editan ni se borran entradas antiguas. Para responder, se escribe una entrada nueva en la seccion propia citando el identificador.
 - Formato: `### F-003 | 2026-11-12 | tipo` y debajo el texto. Franco usa `F-`, Olena usa `O-`.
 - Tipos: `aviso`, `decision`, `duda`, `bloqueo`, `respuesta`.
-- El asistente lee este fichero al empezar la sesion y escribe al terminar.
+- Se lee al empezar a trabajar y se escribe al terminar.
 
 ## Seccion de Franco
 
 ### F-001 | 2026-11-10 | aviso
-Repo preparado. Antes de empezar lee `AGENTS.md` (reglas), `docs/PLAN.md` (plan tecnico y cifras medidas) y `docs/TAREAS.md` (reparto y ramas). Tu asistente de IA debe leer `AGENTS.md`: si usas Claude Code lo carga solo a traves de `CLAUDE.md`.
+Repo preparado. Antes de empezar lee `docs/PLAN.md` (plan tecnico y cifras medidas) y `docs/TAREAS.md` (reparto y ramas).
 
 ### F-002 | 2026-11-10 | decision
 Necesito tu confirmacion en tres puntos:
