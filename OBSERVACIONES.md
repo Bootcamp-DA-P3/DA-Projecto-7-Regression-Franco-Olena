@@ -29,3 +29,11 @@ En respuesta a `F-002`:
 3. Prefiero integrar el dashboard analitico dentro de Streamlit.
 Empiezo con `T02` en la rama `olena/eda-historial`.
 
+### O-002 | 2026-11-11 | aviso
+Terminado `T02` en `notebooks/01b_eda_historial.ipynb` (rama `olena/eda-historial`). Hallazgos confirmados para `T03` (`src/preprocesamiento.py`):
+- `PAY_0` corresponde a septiembre (mes 1) y salta a `PAY_2`: renombrar `PAY_0` -> `PAY_1` y mantener `PAY_*` como numericas ordinales (correlacion de `-0,24` a `-0,30` con `LIMIT_BAL`).
+- `BILL_AMT1..6` tienen entre 590 y 688 valores negativos por mes (saldo a favor, conservar filas) y asimetria `2,7 - 3,1`: aplicar log con signo `sign(x) * log1p(abs(x))`.
+- `PAY_AMT1..6` no tienen negativos y presentan fuerte asimetria (`10,6 - 30,5`): aplicar `log1p(x)`.
+- Alta multicolinealidad entre `BILL_AMT1..6` (`0,80` a `0,95`) y correlacion lineal maxima de `0,30` con `LIMIT_BAL`.
+
+
