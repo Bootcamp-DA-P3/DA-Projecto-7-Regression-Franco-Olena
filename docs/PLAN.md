@@ -4,7 +4,7 @@ Plan tecnico del proyecto de Franco y Olena. Leer junto con `docs/TAREAS.md` (re
 
 Regla general: avanzar fase a fase y no pasar a la siguiente sin cumplir el criterio de "hecho". Al cerrar cada fase, actualizar `docs/TAREAS.md`.
 
-Las fases describen el contenido tecnico. Quien hace cada parte y en que notebook esta en `docs/TAREAS.md`: el EDA se divide en `01a` y `01b`, y los ensembles en `03a` y `03b`.
+Las fases describen el contenido tecnico. Todo el proyecto va en un solo notebook, `notebooks/proyecto_regresion.ipynb`, que se trabaja por turnos (reglas en `docs/TAREAS.md`). Quien hace cada seccion esta en `docs/TAREAS.md`.
 
 ## Cifras de referencia (medidas el 2026-11-10)
 
@@ -47,13 +47,8 @@ Si Franco y Olena cambian el target o el caso de uso, actualizar esta tabla ante
 
 ```
 data/UCI_Credit_Card.csv
-notebooks/01a_eda_perfil.ipynb
-notebooks/01b_eda_historial.ipynb
-notebooks/02_preprocesamiento_y_modelo_base.ipynb
-notebooks/03a_ensembles_rf_gb.ipynb
-notebooks/03b_ensembles_xgboost.ipynb
-notebooks/04_optuna_y_modelo_final.ipynb
-src/preprocesamiento.py      funciones compartidas por notebooks y app
+notebooks/proyecto_regresion.ipynb   notebook unico del proyecto (por turnos)
+src/preprocesamiento.py      funciones compartidas por el notebook y la app
 models/modelo_final.joblib   pipeline entrenado
 app/app.py                   Streamlit
 docs/                        este plan y la guia
@@ -61,6 +56,33 @@ requirements.txt
 README.md
 .gitignore
 ```
+
+## Secciones del notebook unico
+
+El orden sigue la logica del problema: primero que queremos predecir, despues quien es el cliente, su historial, y por ultimo los modelos.
+
+| Seccion | Contenido | Fase | Tarea |
+|---|---|---|---|
+| 0 | Introduccion: problema, caso de uso y dataset | 1 | T01 |
+| 1 | Carga y calidad de los datos | 1 | T01 |
+| 2 | Variable objetivo `LIMIT_BAL` | 1 | T01 |
+| 3 | Perfil del cliente (`SEX`, `EDUCATION`, `MARRIAGE`, `AGE`) | 1 | T01 |
+| 4 | Historial (`PAY_*`, `BILL_AMT*`, `PAY_AMT*`) | 1 | T02 |
+| 5 | Correlaciones | 1 | T02 |
+| 6 | Conclusiones del EDA | 1 | T01 |
+| 7 | Limpieza y preprocesamiento | 2 | T03 |
+| 8 | Modelo base | 3 | T03 |
+| 9 | Ensembles: Random Forest y Gradient Boosting | 4 | T05 |
+| 10 | Ensembles: XGBoost | 4 | T06 |
+| 11 | Optuna y modelo final | 5 | T07 |
+| 12 | Informe de metricas y conclusiones finales | 5 | T07 |
+
+Normas del notebook:
+- Una sola carga de datos (seccion 1) y un solo bloque de imports y estilo de graficos al principio. Motivo: si cada seccion recarga o reconfigura, el notebook final repite codigo y puede dar resultados distintos segun desde donde se ejecute.
+- Nombres de variables con prefijo de su seccion cuando sean intermedios (por ejemplo `cols_pay`, `resumen_edu`). Motivo: en un notebook largo, reutilizar un nombre para otra cosa cambia resultados sin dar error.
+- Cada seccion termina con una celda markdown de conclusiones. Motivo: la seccion siguiente parte de esas decisiones.
+- Antes de cerrar un turno, "Restart & Run All" sin errores y con las salidas guardadas. Motivo: demuestra que el notebook corre de arriba abajo sin estado oculto, y la entrega necesita las salidas visibles.
+- Las funciones que tambien use la app van en `src/`, no en el notebook. Motivo: la app no puede importar un notebook, y un `.py` se revisa bien en git.
 
 ## Fase 0: Preparacion del entorno
 
@@ -77,7 +99,7 @@ Pasos:
 
 Hecho cuando: un notebook de prueba importa pandas y sklearn desde el kernel `.venv`.
 
-## Fase 1: EDA (notebook 01)
+## Fase 1: EDA (secciones 0 a 6)
 
 Objetivo: entender los datos y justificar con graficos las decisiones de limpieza y de target.
 
@@ -85,7 +107,7 @@ Conceptos clave: target y features, tipos de variable (numerica, categorica, ord
 
 Pasos:
 1. Carga, `shape`, `info`, `describe`, nulos y duplicados.
-2. Target `LIMIT_BAL`: histograma y boxplot. Hacer notar que solo toma 81 valores (multiplos de 10.000) y la cola a la derecha.
+2. Target `LIMIT_BAL`: histograma y boxplot. Hacer notar que solo toma 81 valores (casi todos multiplos de 10.000; excepciones: 16.000 en 2 filas y 327.680 en 1) y la cola a la derecha.
 3. Categoricas (`SEX`, `EDUCATION`, `MARRIAGE`): conteos y boxplot de `LIMIT_BAL` por categoria. Detectar los codigos no documentados.
 4. `AGE`: distribucion y relacion con el limite.
 5. `PAY_*`: conteos por valor y limite medio segun retraso.
@@ -97,7 +119,7 @@ Errores tipicos a vigilar: graficar sin titulo ni ejes, sacar conclusiones causa
 
 Hecho cuando: Franco puede explicar con sus palabras por que se elige `LIMIT_BAL` y que tres problemas de calidad tiene el dataset.
 
-## Fase 2: Limpieza y preprocesamiento (notebook 02, primera mitad)
+## Fase 2: Limpieza y preprocesamiento (seccion 7)
 
 Objetivo: dejar los datos listos sin contaminar la evaluacion.
 
@@ -130,7 +152,7 @@ Nota pandas 3: la asignacion encadenada (`df[cond]["col"] = x`) no modifica el D
 
 Hecho cuando: existe un pipeline de preprocesado que transforma train sin errores y Franco sabe explicar que es leakage con un ejemplo de este dataset.
 
-## Fase 3: Modelo base (notebook 02, segunda mitad)
+## Fase 3: Modelo base (seccion 8)
 
 Objetivo: tener una referencia simple contra la que comparar todo lo demas.
 
@@ -150,7 +172,7 @@ Errores tipicos: evaluar sobre train y creer que es el rendimiento real, mirar e
 
 Hecho cuando: hay una tabla con Dummy, Lineal y Ridge (MAE, RMSE, R2, overfitting) y Franco interpreta el grafico de residuos.
 
-## Fase 4: Ensembles y validacion cruzada (notebook 03)
+## Fase 4: Ensembles y validacion cruzada (secciones 9 y 10)
 
 Objetivo: mejorar al modelo base y cumplir overfitting menor al 5%.
 
@@ -167,7 +189,7 @@ Aviso de tiempo: Random Forest con 100 arboles sobre este dataset tarda. La prue
 
 Hecho cuando: hay un modelo candidato con R2 de validacion cerca de 0,48 y overfitting inferior al 5%, y Franco explica la diferencia entre bagging y boosting.
 
-## Fase 5: Optuna y modelo final (notebook 04)
+## Fase 5: Optuna y modelo final (secciones 11 y 12)
 
 Objetivo: ajustar hiperparametros de forma sistematica y cerrar el modelo.
 
