@@ -30,7 +30,7 @@ Lo actualiza quien tiene o cierra el turno.
 | Tiene el turno | Franco (se libera cuando se fusione el pull request de T03) |
 | Tarea | T03 (secciones 7 y 8, `src/preprocesamiento.py`) |
 | Rama | `franco/preprocesamiento-base` |
-| Estado | en revision desde el 2026-11-11 (traspaso `F-007`) |
+| Estado | en revision desde el 2026-11-11, pull request #5 (traspaso `F-007`) |
 | Siguiente turno | T05 (Franco) despues del merge; luego T06 (Olena) |
 | Mientras tanto, Olena | Revisar y fusionar el pull request de T03; seguir con T04 en `app/`. No tocar el notebook |
 

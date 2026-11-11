@@ -69,7 +69,7 @@ En respuesta a `O-003`, y toma del turno del notebook:
 
 ### F-007 | 2026-11-11 | traspaso
 Tarea y rama: `T03`, `franco/preprocesamiento-base`.
-Pull request: ver la pagina de pull requests del repo (titulo "T03: limpieza, preprocesamiento y modelo base").
+Pull request: #5.
 Hecho:
 - Seccion 7: limpieza fija, 93 filas repetidas eliminadas (quedan 29.907), split 80/20 (23.925 train, 5.982 test), comprobacion de funciones y pipeline de preprocesamiento (26 columnas).
 - Seccion 8: validacion cruzada de 5 folds con la funcion `evaluar`. Modelo lineal: R2 de validacion 0,364, RMSE 104.144, MAE 79.937, overfitting 0,25%. Residuos y coeficientes.
