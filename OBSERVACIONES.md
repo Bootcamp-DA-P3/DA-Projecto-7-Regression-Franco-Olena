@@ -6,8 +6,21 @@ Reglas:
 - Cada persona escribe solo en su seccion, anadiendo al final de ella. Asi git fusiona sin conflictos.
 - No se editan ni se borran entradas antiguas. Para responder, se escribe una entrada nueva en la seccion propia citando el identificador.
 - Formato: `### F-003 | 2026-11-12 | tipo` y debajo el texto. Franco usa `F-`, Olena usa `O-`.
-- Tipos: `aviso`, `decision`, `duda`, `bloqueo`, `respuesta`.
+- Tipos: `aviso`, `decision`, `duda`, `bloqueo`, `respuesta`, `traspaso`.
 - Se lee al empezar a trabajar y se escribe al terminar.
+- `traspaso`: se escribe al cerrar un turno del notebook, con esta plantilla:
+
+```
+### F-00X | fecha | traspaso
+Tarea y rama: ...
+Pull request: #...
+Hecho: secciones y ficheros que se tocaron, en pocas lineas.
+Decisiones nuevas: ...
+Cambios en secciones o ficheros de la otra persona: ...
+Que tiene que revisar la otra persona: ...
+Que le toca a la otra persona y por donde empezar: ...
+Siguiente turno del notebook: quien y con que tarea.
+```
 
 ## Seccion de Franco
 
@@ -40,6 +53,43 @@ Avance de `T01` en `docs/TAREAS.md` ("Avance de T01"). Resumen:
 - Tu notebook ahora es `notebooks/proyecto_regresion.ipynb` (renombrado con `git mv`, mismo historial). Tu analisis esta intacto como secciones 4 y 5.
 - Para tener todo igual: no hace falta que borres `01b_eda_historial.ipynb` a mano. Cuando el pull request de `T01` este fusionado, haz `git checkout main` y `git pull`, y git lo quita y trae el notebook nuevo. Antes, asegurate de no tener cambios sin guardar en tu notebook (`git status` limpio).
 - Dos decisiones para `T03` que quiero hablar contigo: que hacemos con las 35 filas repetidas sin `ID`, y si usamos `SEX` como variable (puede ser discriminatorio). Detalle en las secciones 1 y 3 del notebook.
+
+### F-006 | 2026-11-11 | aviso
+En respuesta a `O-003`, y toma del turno del notebook:
+- **Tomo el turno con `T03`** en la rama `franco/preprocesamiento-base` (secciones 7 y 8, y `src/preprocesamiento.py`). No toques `notebooks/proyecto_regresion.ipynb` hasta que este pull request este fusionado. Mientras tanto puedes avanzar `T04` en `app/`.
+- **Duplicados:** de acuerdo, los eliminamos antes del `train_test_split`. Un matiz: las 35 se contaron quitando solo `ID`. Con tu mismo argumento (que el modelo no vea la misma fila en train y test), lo que cuenta son las columnas que vera el modelo: sin `ID`, sin `default.payment.next.month` y sin `SEX` salen **93** filas repetidas (0,31%). Las busco con ese criterio en la seccion 7.2. Si no estas de acuerdo, dimelo al revisar el pull request.
+- **`SEX`:** de acuerdo, la excluimos. En la seccion 7 medire el R2 con y sin `SEX` para dejar la decision justificada con datos.
+- **Autoria en el notebook:** cada titulo de seccion termina ahora con la inicial de quien la hizo, `[F]` o `[L]`, y el indice de la seccion 0 tambien. He anadido `[L]` al titulo de tus secciones 4 y 5 (solo el titulo, el contenido no cambia) y `[L]` a la seccion 10 en el indice. La norma queda en `docs/PLAN.md` ("Normas del notebook"). Si prefieres otra letra o formato, dimelo.
+- **Logaritmo en los importes: lo quitamos (cambia tu recomendacion de `O-002`).** En la seccion 8.2 medimos el modelo lineal con y sin logaritmo en `BILL_AMT*` y `PAY_AMT*`: R2 de validacion 0,364 sin logaritmo y 0,241 con logaritmo. La factura esta limitada por el limite de credito, asi que su relacion con `LIMIT_BAL` es casi una recta en escala original, y el logaritmo la curva. Para arboles da igual (no cambia el orden de los valores). `crear_preprocesador()` ya no aplica logaritmo por defecto; queda como opcion `usar_log=True`. Para `T06` (XGBoost) usa `crear_preprocesador()` sin parametros, igual que en `T05`.
+- **`SEX` medido (seccion 8.3):** R2 de validacion 0,364 con y sin `SEX`. No aporta, asi que excluirla no cuesta precision.
+- **Solo cifras calculadas en el notebook (norma nueva):** quito del texto los numeros que venian de la prueba previa y no de una celda del notebook (R2 0,49 y 0,18 en la introduccion, techo 0,50 y umbral 0,80 en la seccion 6, prueba con logaritmo en la seccion 2). En tu conclusion de las secciones 4 y 5 quite solo "(~0,35)" del punto 6; el resto queda igual. La norma esta en `docs/PLAN.md`.
+- **Texto del notebook breve (norma nueva):** he recortado las celdas markdown de mis secciones (0 a 3, 6 y 7) a titulo, subtitulo y conclusiones con las palabras justas, sin parrafos explicativos. Tus secciones 4 y 5 no las he tocado; si quieres, recorta sus parrafos de introduccion en tu turno de T06 con el mismo criterio.
+- **Traspaso de turno (nuevo):** al cerrar cada turno del notebook escribimos una entrada `traspaso` con la plantilla que hay al principio de este fichero, y actualizamos la tabla "Turno actual" de `docs/TAREAS.md` (regla 7). Asi, despues del `git pull`, cada uno sabe que se hizo y que le toca.
+- Cambios en ficheros compartidos (al tomar el turno): `T01` pasa a `hecha` y `T03` a `en curso` en `docs/TAREAS.md`. En `docs/PLAN.md` (tabla "Decisiones") cierro target y caso de uso (`O-001`) y anado las dos decisiones de `O-003`.
+
+### F-007 | 2026-11-11 | traspaso
+Tarea y rama: `T03`, `franco/preprocesamiento-base`.
+Pull request: #5.
+Hecho:
+- Seccion 7: limpieza fija, 93 filas repetidas eliminadas (quedan 29.907), split 80/20 (23.925 train, 5.982 test), comprobacion de funciones y pipeline de preprocesamiento (26 columnas).
+- Seccion 8: validacion cruzada de 5 folds con la funcion `evaluar`. Modelo lineal: R2 de validacion 0,364, RMSE 104.144, MAE 79.937, overfitting 0,25%. Residuos y coeficientes.
+- `src/preprocesamiento.py`: `agrupar_codigos`, `log_con_signo` y `crear_preprocesador(incluir_sex=False, usar_log=False)`.
+- Notebook ejecutado de principio a fin sin errores y guardado con salidas.
+Decisiones nuevas (detalle en `F-006` y en la tabla "Decisiones" de `docs/PLAN.md`):
+- Duplicados buscados en las columnas del modelo: 93 filas, no 35.
+- Sin logaritmo en los importes: empeora el modelo lineal (0,241 frente a 0,364).
+- `SEX` fuera: no aporta (0,364 con y sin ella).
+- Normas nuevas del notebook: inicial `[F]`/`[L]` en cada titulo, solo cifras calculadas en el notebook, texto breve sin parrafos explicativos.
+Cambios en secciones o ficheros de la otra persona:
+- Secciones 4 y 5: anadido `[L]` al titulo y quitado "(~0,35)" del punto 6 de las conclusiones. Nada mas.
+Que tiene que revisar la otra persona:
+- Secciones 7 y 8 del notebook y `src/preprocesamiento.py`.
+- Que estes de acuerdo con quitar el logaritmo (era tu recomendacion de `O-002`) y con las 93 filas repetidas.
+Que le toca a la otra persona y por donde empezar:
+1. Revisar el pull request de `T03` y fusionarlo si esta bien. Despues, `git checkout main` y `git pull`.
+2. Seguir con `T04` en `app/`. No tocar el notebook.
+3. Para `T06` (cuando termine `T05`): usar `crear_preprocesador()` sin parametros y la funcion `evaluar` de la seccion 8 con el mismo `cv`, para que los resultados se puedan comparar con la tabla de la seccion 8.
+Siguiente turno del notebook: Franco con `T05` (seccion 9), despues del merge.
 
 ## Seccion de Olena
 
