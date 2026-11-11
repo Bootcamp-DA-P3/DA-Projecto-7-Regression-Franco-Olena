@@ -21,19 +21,23 @@ El repo se presenta en el curso como un proyecto de data analytics. El uso de IA
 ## Al empezar cada sesion
 1. Preguntar a la persona quien es (Franco u Olena) si no esta claro.
 2. Pedirle que actualice su copia: `git checkout main`, `git pull`, y volver a su rama.
-3. Leer `docs/TAREAS.md`: que tarea tiene asignada, en que rama y de que depende.
-4. Leer `OBSERVACIONES.md`: mensajes nuevos de la otra persona.
+3. Leer `docs/TAREAS.md`: que tarea tiene asignada, en que rama y de que depende. Mirar "Turno actual" para saber quien tiene el notebook.
+4. Leer `OBSERVACIONES.md`: mensajes nuevos de la otra persona. Si hay una entrada `traspaso` nueva, resumirsela a la persona (que se hizo, decisiones, cambios en sus secciones, que tiene que revisar) y empezar por su apartado "Que le toca a la otra persona".
 5. Abrir la fase correspondiente en `docs/PLAN.md` y continuar desde ahi.
 
 ## Al terminar cada sesion
 1. Actualizar el estado de la tarea propia en `docs/TAREAS.md` (solo las filas propias).
 2. Escribir en `OBSERVACIONES.md`, en la seccion propia, lo que la otra persona necesite saber: decisiones, cambios en ficheros compartidos, dudas, bloqueos.
-3. Proponer el commit y el push. No hacer commit, push ni merge sin que la persona lo pida.
+3. Si la persona cierra su turno del notebook: escribir la entrada `traspaso` con la plantilla de `OBSERVACIONES.md` y actualizar "Turno actual" en `docs/TAREAS.md` (regla 7 del turno).
+4. Proponer el commit y el push. No hacer commit, push ni merge sin que la persona lo pida.
 
 ## Reglas de trabajo en equipo
 - Nadie trabaja directamente en `main`. Cada tarea va en su rama, con el nombre indicado en `docs/TAREAS.md` (formato `nombre/descripcion`).
 - La rama se integra en `main` con un pull request que revisa la otra persona.
 - Un solo notebook para todo el proyecto (`notebooks/proyecto_regresion.ipynb`), trabajado por turnos. Antes de tocarlo, leer "Notebook unico y trabajo por turnos" en `docs/TAREAS.md` y comprobar que la persona tiene el turno. Si no lo tiene, no editar el notebook: trabajar en otros ficheros (`app/`, `src/`, README). Motivo: los notebooks no se pueden fusionar bien con git. El mapa de secciones y las normas del notebook estan en `docs/PLAN.md`.
+- Solo cifras calculadas en el notebook: en celdas markdown, conclusiones y README no se citan numeros (R2, RMSE, conteos...) que no salgan de una celda ya ejecutada antes en el propio notebook. Las cifras de referencia de `docs/PLAN.md` sirven para orientarse, no para escribirlas en el notebook. Si una idea necesita un numero que aun no se ha calculado, se explica con razonamiento o se deja para la seccion que lo calcule. Motivo: el notebook se lee como el trabajo real del equipo, de arriba abajo.
+- Texto del notebook breve: titulos, subtitulos y conclusiones con las palabras justas, como los escribiria el equipo. Sin parrafos que expliquen conceptos o el porque de cada paso ("antes de modelar hay que..."). Las explicaciones didacticas se dan a la persona en la conversacion, no en el notebook.
+- Autoria en el notebook: el titulo de cada seccion (`## N. Titulo`) y su linea del indice de la seccion 0 terminan con `[F]` (Franco) o `[L]` (Olena). Al crear una seccion nueva, anadir la inicial de quien la hace.
 - Un fichero, un dueno para el resto de ficheros. Cada persona escribe solo sus secciones del notebook; si hace falta un cambio en una seccion ajena, pedirlo en `OBSERVACIONES.md` o explicarlo en el pull request.
 - Ficheros compartidos (`docs/PLAN.md`, `requirements.txt`, `src/preprocesamiento.py`): tienen un dueno en `docs/TAREAS.md`. Cualquier cambio se avisa en `OBSERVACIONES.md` y entra por pull request.
 - En `docs/TAREAS.md` cada persona edita solo sus filas. En `OBSERVACIONES.md` cada persona escribe solo en su seccion y no modifica entradas antiguas.

@@ -22,7 +22,7 @@ Prueba rapida sin limpieza ni ajuste, split 80/20 con `random_state=42`, target 
 Conclusiones verificadas:
 - El caso "cliente nuevo" tiene techo de R2 cercano a 0,18. El caso "revision" llega a 0,49. Por eso se recomienda "revision".
 - Techo realista del proyecto: R2 de test alrededor de 0,50, RMSE alrededor de 93.000 NT$. Si aparece un R2 superior a 0,80, sospechar data leakage antes de celebrarlo.
-- Transformar el target con logaritmo EMPEORA el R2 en todos los modelos (y rompe el lineal: R2 negativo). No aplicar log al target. Si aplicar log a las variables de importe.
+- Transformar el target con logaritmo EMPEORA el R2 en todos los modelos (y rompe el lineal: R2 negativo). No aplicar log al target. Log en las variables de importe: descartado en T03 (ver tabla de decisiones).
 - Anadir `default.payment.next.month` como variable sube el R2 solo 0,002. Se excluye: es informacion futura y no aporta.
 - Random Forest por defecto memoriza (0,92 en train contra 0,47 en test). Ejemplo perfecto para ensenar overfitting.
 - HistGradientBoosting por defecto tiene una diferencia de RMSE train/test del 7,8%. No cumple el limite del 5% sin regularizar.
@@ -32,9 +32,12 @@ Conclusiones verificadas:
 
 | Decision | Estado | Valor |
 |---|---|---|
-| Variable objetivo | Recomendada, falta confirmar con Olena | `LIMIT_BAL` |
-| Caso de uso | Recomendado, falta confirmar con Olena | Revision de limite de cliente existente (perfil + historial de 6 meses) |
+| Variable objetivo | Cerrada (O-001) | `LIMIT_BAL` |
+| Caso de uso | Cerrada (O-001) | Revision de limite de cliente existente (perfil + historial de 6 meses) |
 | Transformar target | Cerrada con datos | No |
+| Filas duplicadas | Cerrada (O-003, F-006) | Se eliminan antes del `train_test_split`, buscadas en las columnas del modelo (sin `ID`, `default` ni `SEX`): 93 filas |
+| Variable `SEX` | Cerrada con datos (seccion 8.3) | Se excluye del modelo. R2 de validacion 0,364 con y sin `SEX` en el modelo lineal |
+| Logaritmo en `BILL_AMT*` y `PAY_AMT*` | Cerrada con datos (seccion 8.2) | No se aplica. Modelo lineal: R2 de validacion 0,364 sin logaritmo y 0,241 con logaritmo. Queda como opcion `usar_log=True` en `crear_preprocesador` |
 | `default.payment.next.month` | Cerrada con datos | Se elimina de las variables |
 | Definicion de overfitting | Propuesta, confirmar con el formador | Diferencia relativa de RMSE entre train y validacion menor al 5%. Informar tambien la de R2 |
 | Dashboard | Abierta | Dentro de Streamlit (mas simple) o Power BI |
@@ -81,6 +84,9 @@ Normas del notebook:
 - Una sola carga de datos (seccion 1) y un solo bloque de imports y estilo de graficos al principio. Motivo: si cada seccion recarga o reconfigura, el notebook final repite codigo y puede dar resultados distintos segun desde donde se ejecute.
 - Nombres de variables con prefijo de su seccion cuando sean intermedios (por ejemplo `cols_pay`, `resumen_edu`). Motivo: en un notebook largo, reutilizar un nombre para otra cosa cambia resultados sin dar error.
 - Cada seccion termina con una celda markdown de conclusiones. Motivo: la seccion siguiente parte de esas decisiones.
+- Celdas markdown breves: titulo, subtitulo y conclusiones con las palabras justas. Sin parrafos explicativos.
+- Solo se escriben cifras que se hayan calculado antes en el propio notebook. Las cifras de referencia de este plan no se copian al notebook. Motivo: el notebook cuenta el trabajo en orden, y un numero sin celda que lo calcule no se puede comprobar.
+- El titulo de cada seccion (`## N. Titulo`) termina con la inicial de quien la hizo: `[F]` Franco, `[L]` Olena. Tambien en el indice de la seccion 0. Motivo: en un notebook unico se ve de un vistazo a quien preguntar por cada parte.
 - Antes de cerrar un turno, "Restart & Run All" sin errores y con las salidas guardadas. Motivo: demuestra que el notebook corre de arriba abajo sin estado oculto, y la entrega necesita las salidas visibles.
 - Las funciones que tambien use la app van en `src/`, no en el notebook. Motivo: la app no puede importar un notebook, y un `.py` se revisa bien en git.
 
@@ -132,7 +138,7 @@ Decisiones de limpieza:
 - `EDUCATION`: agrupar 0, 5 y 6 en 4 ("otros"). `MARRIAGE`: agrupar 0 en 3 ("otros").
 - `SEX`, `EDUCATION`, `MARRIAGE`: one-hot para el modelo lineal. Los arboles no lo necesitan, pero se mantiene un unico pipeline por modelo.
 - `PAY_*`: se dejan numericas (son ordinales). Interpretacion habitual, no oficial: -2 sin consumo, -1 pagado completo, 0 pago minimo, 1 a 8 meses de retraso.
-- `BILL_AMT*`: log con signo, `sign(x) * log1p(abs(x))`, porque hay negativos. `PAY_AMT*`: `log1p`.
+- `BILL_AMT*`: log con signo, `sign(x) * log1p(abs(x))`, porque hay negativos. `PAY_AMT*`: `log1p`. ACTUALIZADO en T03: medido en la seccion 8.2, el logaritmo empeora el modelo lineal (R2 0,364 sin log, 0,241 con log), asi que por defecto no se aplica. Motivo probable: la factura esta limitada por el limite y su relacion con `LIMIT_BAL` es casi lineal en escala original; el log la curva. A los arboles no les afecta (el log no cambia el orden de los valores).
 - Escalado (`StandardScaler`) solo para modelos lineales.
 
 Variables nuevas permitidas (probar si mejoran, no asumirlo): media y maximo de factura, numero de meses con retraso, retraso maximo, ratio pago/factura, tendencia de la factura (mes 1 menos mes 6).

@@ -19,15 +19,29 @@ Reglas del turno:
 4. Cada uno escribe solo sus secciones. Si hace falta cambiar una seccion de la otra persona, se pide en `OBSERVACIONES.md`, o se hace y se explica en el pull request para que la duena lo apruebe. Motivo: quien escribio la seccion es quien sabe por que esta asi.
 5. Al terminar el turno: "Restart & Run All" sin errores, commit, pull request y revision de la otra persona. El turno se libera cuando el pull request esta fusionado en `main`. Motivo: si alguien empieza antes del merge, parte de una version vieja y vuelve el conflicto.
 6. Mientras una persona tiene el turno, la otra trabaja en ficheros que no son el notebook (`app/`, `src/` si es su dueno, README, presentacion) o revisa. Motivo: no hay esperas sin hacer nada.
+7. Al cerrar el turno (cuando se abre el pull request), quien lo tenia escribe una entrada `traspaso` en `OBSERVACIONES.md` con la plantilla de ese fichero y actualiza "Turno actual" aqui abajo. Motivo: la otra persona hace `git pull` y sabe que se hizo y que le toca sin tener que preguntar.
+
+### Turno actual
+
+Lo actualiza quien tiene o cierra el turno.
+
+| Campo | Valor |
+|---|---|
+| Tiene el turno | Franco (se libera cuando se fusione el pull request de T03) |
+| Tarea | T03 (secciones 7 y 8, `src/preprocesamiento.py`) |
+| Rama | `franco/preprocesamiento-base` |
+| Estado | en revision desde el 2026-11-11 (traspaso `F-007`) |
+| Siguiente turno | T05 (Franco) despues del merge; luego T06 (Olena) |
+| Mientras tanto, Olena | Revisar y fusionar el pull request de T03; seguir con T04 en `app/`. No tocar el notebook |
 
 ## Tabla
 
 | ID | Tarea | Responsable | Rama | Ficheros propios | Depende de | Estado |
 |---|---|---|---|---|---|---|
 | T00 | Entorno, estructura del repo y primer commit | Franco | `main` (solo esta vez) | `requirements.txt`, `.gitignore`, `README.md` | | hecha |
-| T01 | EDA A: target y perfil (`LIMIT_BAL`, `SEX`, `EDUCATION`, `MARRIAGE`, `AGE`), crear el notebook unico e integrar en el las secciones de T02 | Franco | `franco/eda-perfil` | notebook unico, secciones 0 a 3 y 6 | T00 | en revision |
+| T01 | EDA A: target y perfil (`LIMIT_BAL`, `SEX`, `EDUCATION`, `MARRIAGE`, `AGE`), crear el notebook unico e integrar en el las secciones de T02 | Franco | `franco/eda-perfil` | notebook unico, secciones 0 a 3 y 6 | T00 | hecha |
 | T02 | EDA B: historial (`PAY_*`, `BILL_AMT*`, `PAY_AMT*`) y correlaciones | Olena | `olena/eda-historial` | notebook unico, secciones 4 y 5 (hecho en `notebooks/01b_eda_historial.ipynb`, se integra en T01) | T00 | hecha |
-| T03 | Limpieza, preprocesamiento y modelo base | Franco | `franco/preprocesamiento-base` | notebook unico, secciones 7 y 8; `src/preprocesamiento.py` | T01, T02 | pendiente |
+| T03 | Limpieza, preprocesamiento y modelo base | Franco | `franco/preprocesamiento-base` | notebook unico, secciones 7 y 8; `src/preprocesamiento.py` | T01, T02 | en revision |
 | T04 | Esqueleto de la app y dashboard con graficos del EDA | Olena | `olena/app-esqueleto` | `app/` | T01, T02 | pendiente |
 | T05 | Ensembles A: Random Forest y Gradient Boosting con validacion cruzada | Franco | `franco/ensembles-rf-gb` | notebook unico, seccion 9 | T03 | pendiente |
 | T06 | Ensembles B: XGBoost con validacion cruzada | Olena | `olena/ensembles-xgboost` | notebook unico, seccion 10 | T05 | pendiente |
@@ -56,6 +70,14 @@ Reglas del turno:
 | `docs/TAREAS.md` | Los dos | Cada uno solo sus filas |
 | `OBSERVACIONES.md` | Los dos | Cada uno solo su seccion |
 
+## Avance de T03 (2026-11-11)
+
+Hecho en la rama `franco/preprocesamiento-base`:
+- Seccion 7 del notebook: 7.1 limpieza fija (fuera `ID` y `default.payment.next.month`, `PAY_0` pasa a `PAY_1`), 7.2 filas repetidas (93 en las columnas del modelo, quedan 29.907), 7.3 split 80/20 con `random_state=42` (23.925 train, 5.982 test, mediana 140.000 en los dos), 7.4 comprobacion de las funciones propias y 7.5 pipeline de preprocesamiento (22 columnas pasan a 26).
+- `src/preprocesamiento.py`: `agrupar_codigos`, `log_con_signo` y `crear_preprocesador(incluir_sex=False, usar_log=False)`. Probado que se guarda y se recarga con joblib.
+- Seccion 8: funcion `evaluar` con validacion cruzada de 5 folds (`KFold`, `random_state=42`). 8.1 Dummy R2 0, Lineal y Ridge R2 de validacion 0,364, RMSE 104.144, MAE 79.937, overfitting 0,25%. 8.2 con logaritmo en importes el R2 baja a 0,241: se descarta el logaritmo. 8.3 `SEX` no aporta (0,364 con y sin): se excluye. 8.4 residuos: el modelo tira hacia el centro (se pasa en limites bajos, se queda corto en altos) y predice 237 limites negativos. 8.5 coeficientes.
+- Conclusiones de las secciones 7 y 8 escritas. Notebook ejecutado de principio a fin (31 celdas de codigo, sin errores) y guardado con salidas.
+
 ## Avance de T01 (2026-11-11)
 
 Hecho en la rama `franco/eda-perfil`:
@@ -67,7 +89,7 @@ Hecho en la rama `franco/eda-perfil`:
 - Decisiones abiertas para T03, a acordar entre los dos: que hacer con los 35 duplicados y si se usa `SEX` como variable.
 - Docs actualizados con el metodo de notebook unico por turnos: este fichero, `docs/PLAN.md` y `OBSERVACIONES.md` (`F-004`).
 
-Notebook ejecutado completo y guardado con salidas. Pull request abierto: falta la revision de Olena y el merge.
+Notebook ejecutado completo y guardado con salidas. Pull request #3 revisado por Olena y fusionado en `main`. Decisiones abiertas cerradas en `O-003` (ver tabla "Decisiones" de `docs/PLAN.md`).
 
 ## Notas de T00 (maquina de Franco, 2026-11-10)
 
