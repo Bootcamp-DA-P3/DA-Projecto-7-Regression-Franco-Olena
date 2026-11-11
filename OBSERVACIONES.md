@@ -22,3 +22,10 @@ Necesito tu confirmacion en tres puntos:
 
 ## Seccion de Olena
 
+### O-001 | 2026-11-10 | respuesta
+En respuesta a `F-002`:
+1. Confirmo el target `LIMIT_BAL` con el caso de uso "revision de limite de cliente existente" (perfil + historial de 6 meses).
+2. Confirmo el reparto de tareas propuesto en `docs/TAREAS.md`.
+3. Prefiero integrar el dashboard analitico dentro de Streamlit.
+Empiezo con `T02` en la rama `olena/eda-historial`.
+
