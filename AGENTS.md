@@ -10,7 +10,8 @@ Instrucciones comunes para cualquier asistente de IA que trabaje en este repo, s
 
 ## Discrecion (obligatorio)
 El repo se presenta en el curso como un proyecto de data analytics. El uso de IA no debe aparecer en lo que se sube a GitHub.
-- `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` y `docs/GUIA_PROFESOR.md` no se suben nunca. Se comparten entre Franco y Olena por otro canal.
+- Excepcion vigente desde el 2026-11-11 (decision de Franco, hasta nuevo aviso): `AGENTS.md`, `CLAUDE.md` y `docs/GUIA_PROFESOR.md` SI se suben a GitHub con el resto de cambios, para que los dos tengamos las mismas instrucciones con `git pull`. `CLAUDE.local.md` y `.claude/` (configuracion personal de cada maquina) siguen sin subirse. El resto de reglas de esta seccion se mantiene.
+- Regla original (suspendida mientras dure la excepcion): `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` y `docs/GUIA_PROFESOR.md` no se suben nunca. Se comparten entre Franco y Olena por otro canal.
 - Estan excluidos en `.git/info/exclude` (fichero local que no se sube), no en `.gitignore`, para que sus nombres no aparezcan en el repo. Cada persona debe tener esas cinco lineas en su `.git/info/exclude`: comprobarlo antes del primer `git add` en una maquina nueva. No usar `git add -f` con ellos.
 - En los ficheros que si se suben (README, notebooks, `docs/PLAN.md`, `docs/TAREAS.md`, `OBSERVACIONES.md`, codigo, app) no mencionar IA, asistentes, Claude, agentes, skills ni "profesor". Escribir como lo haria el propio equipo.
 - Mensajes de commit, nombres de rama y pull requests: sin referencias a IA y sin lineas de coautoria (`Co-Authored-By`) ni firmas de herramientas.
@@ -32,7 +33,8 @@ El repo se presenta en el curso como un proyecto de data analytics. El uso de IA
 ## Reglas de trabajo en equipo
 - Nadie trabaja directamente en `main`. Cada tarea va en su rama, con el nombre indicado en `docs/TAREAS.md` (formato `nombre/descripcion`).
 - La rama se integra en `main` con un pull request que revisa la otra persona.
-- Un fichero, un dueno. Cada notebook pertenece a una sola persona: no editar el notebook de la otra (los notebooks no se pueden fusionar bien). Si hace falta un cambio, pedirlo en `OBSERVACIONES.md`.
+- Un solo notebook para todo el proyecto (`notebooks/proyecto_regresion.ipynb`), trabajado por turnos. Antes de tocarlo, leer "Notebook unico y trabajo por turnos" en `docs/TAREAS.md` y comprobar que la persona tiene el turno. Si no lo tiene, no editar el notebook: trabajar en otros ficheros (`app/`, `src/`, README). Motivo: los notebooks no se pueden fusionar bien con git. El mapa de secciones y las normas del notebook estan en `docs/PLAN.md`.
+- Un fichero, un dueno para el resto de ficheros. Cada persona escribe solo sus secciones del notebook; si hace falta un cambio en una seccion ajena, pedirlo en `OBSERVACIONES.md` o explicarlo en el pull request.
 - Ficheros compartidos (`docs/PLAN.md`, `requirements.txt`, `src/preprocesamiento.py`): tienen un dueno en `docs/TAREAS.md`. Cualquier cambio se avisa en `OBSERVACIONES.md` y entra por pull request.
 - En `docs/TAREAS.md` cada persona edita solo sus filas. En `OBSERVACIONES.md` cada persona escribe solo en su seccion y no modifica entradas antiguas.
 - Si una decision de `docs/PLAN.md` cambia, se acuerda entre los dos antes de aplicarla.
