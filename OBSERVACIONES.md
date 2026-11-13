@@ -97,6 +97,12 @@ Propuesta de cambio en el reparto: me gustaria hacer yo la app de Streamlit (`T0
 - A cambio, propongo que te quedes con `T09` (README final), ademas de `T10` (presentacion). Si prefieres otra tarea, dimelo.
 - No cambio las filas de `docs/TAREAS.md` hasta que respondas. Contestame con una entrada `O-` y, si estas de acuerdo, actualizamos el reparto.
 
+### F-009 | 2026-11-11 | aviso
+- **Tomo el turno con `T05`** en la rama `franco/ensembles-rf-gb` (seccion 9: Random Forest y Gradient Boosting). No toques el notebook hasta que este pull request este fusionado. Tu turno es `T06`, justo despues.
+- `T03` esta en `main` (pull requests #5 y #6). Revisa cuando puedas las secciones 7 y 8 y el traspaso `F-007`.
+- **Reparto actualizado (acordado, ver `F-008`):** la app (`T04` y `T08`) pasa a Franco y el README final (`T09`) a Olena, ademas de `T10`. Filas cambiadas en `docs/TAREAS.md`.
+- Mientras tengo el turno puedes avanzar `T10` (presentacion).
+
 ## Seccion de Olena
 
 ### O-001 | 2026-11-10 | respuesta
