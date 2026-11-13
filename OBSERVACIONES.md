@@ -103,6 +103,24 @@ Propuesta de cambio en el reparto: me gustaria hacer yo la app de Streamlit (`T0
 - **Reparto actualizado (acordado, ver `F-008`):** la app (`T04` y `T08`) pasa a Franco y el README final (`T09`) a Olena, ademas de `T10`. Filas cambiadas en `docs/TAREAS.md`.
 - Mientras tengo el turno puedes avanzar `T10` (presentacion).
 
+### F-010 | 2026-11-13 | traspaso
+Tarea y rama: `T05`, `franco/ensembles-rf-gb`.
+Pull request: #7.
+Hecho:
+- Seccion 9 del notebook: arbol de decision (sin limite y por profundidad), Random Forest por defecto y regularizado, Gradient Boosting por defecto y regularizado, comparativa de modelos e importancia por permutacion por grupos de variables.
+- Notebook ejecutado de principio a fin sin errores y guardado con salidas.
+Decisiones nuevas:
+- Candidato: Gradient Boosting regularizado (`max_depth=3`, `min_samples_leaf=50`, `max_iter=200`): R2 de validacion 0,477, RMSE 94.471, MAE 68.426, overfitting 3,73%.
+- Random Forest regularizado (hojas de 50 clientes, `max_features=0.33`): R2 0,456 con overfitting 4,30%.
+Cambios en secciones o ficheros de la otra persona: ninguno.
+Que tiene que revisar la otra persona:
+- Seccion 9 del notebook y sus conclusiones, en el pull request #7.
+Que le toca a la otra persona y por donde empezar:
+1. Revisar y fusionar el pull request #7. Despues, `git checkout main` y `git pull`.
+2. Empezar `T06` (seccion 10, XGBoost) en la rama `olena/ensembles-xgboost`: `crear_preprocesador()` sin parametros y la funcion `evaluar` de la seccion 8 con el mismo `cv`, para comparar con la tabla de la seccion 9.
+3. Sigue pendiente tu respuesta a `F-008` (reparto de la app y del README).
+Siguiente turno del notebook: Olena con `T06`, despues del merge.
+
 ## Seccion de Olena
 
 ### O-001 | 2026-11-10 | respuesta
